@@ -27,27 +27,34 @@ import org.apache.camel.impl.DefaultCamelContext;
 public class ObtainPublicKey {
 
 	public static void main(final String[] args) throws Exception {
-		
+
 		String jwkSetURL = null;
-		
+
 		if (args.length != 1) {
-			throw new Exception("Need to supply 1 URL to obtain JWKSet");
-		} else {
-			jwkSetURL = args[0];
-		}
-				
+			throw new Exception(
+					"Format:\njava -jar obtainPublicKey.jar <URL>");
+		} 
+		
+		jwkSetURL = args[0];
+		
 		CamelContext context = new DefaultCamelContext();
 
+		String url = null;
+
+		if (args[0].startsWith("https://") || args[0].startsWith("HTTPS://")) {
+			url = jwkSetURL.replaceFirst("^https://", "https4://");
+		} else {
+			url = jwkSetURL.replaceFirst("^http://", "http4://");
+		}
+
 		context.addRoutes(new PublicKeyRouteBuilder());
-		context.addRoutes(new FetchJWKSetRouteBuilder(jwkSetURL.replaceFirst("^http", "http4")));
+		context.addRoutes(new FetchJWKSetRouteBuilder(url));
 
 		ProducerTemplate template = context.createProducerTemplate();
 
 		context.start();
 
 		String publicKeyStr = template.requestBody("direct:obtainKeyFromHttp", null, String.class);
-
-		Thread.sleep(2000);
 
 		System.out.println(publicKeyStr);
 
