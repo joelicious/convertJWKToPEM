@@ -44,7 +44,7 @@ public class PublicKeyProcessor implements Processor {
 			} finally {
 				writer.close();
 			}
-			
+						
 			exchange.getIn().setBody(trimAndSlurp(sw.toString()));
 
 		} else {
@@ -59,7 +59,7 @@ public class PublicKeyProcessor implements Processor {
 		
 		String returnableStr = "";
 		
-		String[] lines = publicKeyStr.split("\\n");
+		String[] lines = publicKeyStr.split("\\r?\\n");
 		for (int i = 1; i < lines.length - 1; i++) {
 			returnableStr = returnableStr + lines[i];
 		}

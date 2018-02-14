@@ -22,7 +22,7 @@ public class ObtainPublicKeyTest extends CamelTestSupport {
 	protected MockEndpoint failureEndpoint;
 
 	final static String jwkJsonKeys = "{\"keys\":[{\"kty\":\"RSA\",\"kid\":\"SylLC6Njt1KGQktD9Mt+0zceQSU=\",\"use\":\"sig\",\"alg\":\"RS256\",\"n\":\"AK0kHP1O-RgdgLSoWxkuaYoi5Jic6hLKeuKw8WzCfsQ68ntBDf6tVOTn_kZA7Gjf4oJAL1dXLlxIEy-kZWnxT3FF-0MQ4WQYbGBfaW8LTM4uAOLLvYZ8SIVEXmxhJsSlvaiTWCbNFaOfiII8bhFp4551YB07NfpquUGEwOxOmci_\",\"e\":\"AQAB\"}]}";
-
+	
 	@Test
 	public void testPublicKeyCreationTest() throws Exception {
 		successEndpoint.expectedMessageCount(1);
